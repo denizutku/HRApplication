@@ -1,0 +1,1 @@
+insert into job values (0,'Description example','2019-02-03',13,'Title example');
