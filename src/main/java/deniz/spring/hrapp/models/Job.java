@@ -24,11 +24,8 @@ public class Job {
     @Column(name = "numberToHire")
     private int numberToHire;
 
-    @Column(name = "lastDate",  nullable = false, updatable = false)
-    @JsonFormat(pattern = "yyyy-MM-dd")
-    @Temporal(TemporalType.DATE)
-    @CreationTimestamp
-    private Date lastDate;
+    @Column(name = "lastDate")
+    private String lastDate;
 
     public Long getId() {
         return id;
@@ -62,11 +59,11 @@ public class Job {
         this.numberToHire = numberToHire;
     }
 
-    public Date getLastDate() {
+    public String getLastDate() {
         return lastDate;
     }
 
-    public void setLastDate(Date lastDate) {
+    public void setLastDate(String lastDate) {
         this.lastDate = lastDate;
     }
 }

@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:th="http://www.thymeleaf.org"
+      xmlns:layout="http://www.w3.org/1999/xhtml">
+<head>
+</head>
+<body>
+
+<div class="col-md-4">
+    <form th:action="@{/savejob}" method="post" th:object="${newJob}">
+        <div id="contact-form" class="form-container" data-form-container style="color: rgb(46, 125, 50); background: rgb(200, 230, 201);">
+            <div class="row">
+                <div class="form-title">
+                    <span> Create A Job Listing </span>
+                </div>
+            </div>
+            <div class="input-container">
+                <div class="row">
+					<span class="req-input valid" >
+						<span class="input-status" data-toggle="tooltip" data-placement="top" title="Input your post title."> </span>
+						<input type="text" data-min-length="8" placeholder="Post Title" value="testing post" th:field="*{title}">
+					</span>
+                </div>
+
+                <div class="row">
+					<span class="req-input message-box valid">
+						<span class="input-status" data-toggle="tooltip" data-placement="top" title="Post Contents."> </span>
+						<textarea type="textarea" data-min-length="10" placeholder="Post Contents" th:field="*{description}">Valid contents </textarea>
+                </div>
+
+                <div class="row">
+					<span class="req-input message-box valid">
+						<span class="input-status" data-toggle="tooltip" data-placement="top" title="Post Contents."> </span>
+						<input type="number" data-min-length="8" placeholder="Post Title" value="testing post" th:field="*{numberToHire}">
+                </div>
+                <div class="row">
+					<span class="req-input message-box valid">
+						<span class="input-status" data-toggle="tooltip" data-placement="top" title="Post Contents."> </span>
+						<input type="date" data-min-length="8" placeholder="Post Title" value="testing post" th:field="*{lastDate}">
+                </div>
+
+
+                <div class="row submit-row">
+                    <button type="submit" class="btn btn-block submit-form valid" >Submit</button>
+                </div>
+            </div>
+        </div>
+    </form>
+</div>
+
+</body>
+</html>
