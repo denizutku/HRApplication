@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:th="http://www.thymeleaf.org"
+      xmlns:layout="http://www.w3.org/1999/xhtml">
+<head>
+</head>
+<body>
+
+<div class="jobs" align="center">
+    <table border="2">
+        <thead>
+        <tr>
+            <th>ID</th>
+            <th>Job Title</th>
+            <th>Job Description</th>
+            <th>Number of people to hire</th>
+            <th>Last application date</th>
+            <th>Actions</th>
+
+        </tr>
+        </thead>
+
+        <tbody>
+        <tr th:each="applicant : ${listApplications}">
+            <td th:text="${applicant.id}"></td>
+            <td th:text="${applicant.name}"></td>
+            <td th:text="${applicant.email}"></td>
+            <td th:text="${applicant.phone}"></td>
+            <td th:text="${applicant.address}"></td>
+            <td th:text="${applicant.thoughts}"></td>
+
+        </tr>
+        </tbody>
+    </table>
+</div>
+
+</body>
+</html>
