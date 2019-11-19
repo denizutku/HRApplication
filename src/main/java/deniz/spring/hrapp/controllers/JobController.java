@@ -73,7 +73,7 @@ public class JobController {
     @RequestMapping(value = "/saveapplication", method = RequestMethod.POST)
     public String saveJob(@ModelAttribute("Applicant") Applicant Applicant) {
         applicantService.saveApplication(Applicant);
-        return "redirect:/applications";
+        return "redirect:/jobs";
     }
 
 }

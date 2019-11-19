@@ -1,69 +1,105 @@
 <!DOCTYPE html>
-<html xmlns="http://www.w3.org/1999/xhtml"
-      xmlns:th="http://www.thymeleaf.org"
-      xmlns:layout="http://www.w3.org/1999/xhtml">
+<html lang="en" xmlns:th="http://www.w3.org/1999/xhtml">
 <head>
+    <title>Title</title>
+    <link rel="stylesheet" type="text/css" href="https://cdnjs.cloudflare.com/ajax/libs/semantic-ui/2.4.1/semantic.min.css">
+
 </head>
 <body>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/semantic-ui/2.4.1/semantic.min.js"></script>
 
-<div class="jobs" align="center">
-    <table border="2">
-        <h3 align="center">Job Details</h3>
-        <thead>
-        <tr>
-            <th>ID</th>
-            <th>Job Title</th>
-            <th>Job Description</th>
-            <th>Number of people to hire</th>
-            <th>Last application date</th>
-
-        </tr>
-        </thead>
-
-        <tbody>
-        <tr th:each="job : ${jobDetail}">
-            <td th:text="${job.id}"></td>
-            <td th:text="${job.title}"></td>
-            <td th:text="${job.description}"></td>
-            <td th:text="${job.numberToHire}"></td>
-            <td th:text="${job.lastDate}"></td>
-        </tr>
-        </tbody>
-    </table>
+<div class="ui top fixed menu">
+    <div class="item">
+        <img src="/images/logo.png">
+    </div>
+    <a class="item" href="/">Home</a>
+    <a class="item" href="/jobs">Jobs</a>
+    <a class="item" href="/createjob">Create New Job</a>
+    <a class="item" href="/applications">Applications</a>
+    <a class="item" href="/login">Login</a>
+    <a class="item" href="/logout">Logout</a>
 </div>
 
 
-<div class="col-md-4">
-    <form th:action="@{/saveapplication}" method="post" th:object="${newApplication}">
-        <div id="contact-form" class="form-container" data-form-container style="color: rgb(46, 125, 50); background: rgb(200, 230, 201);">
-            <div class="row">
-                <div class="form-title">
-                    <span> Create A Job Listing </span>
-                </div>
-            </div>
-            <div class="input-container">
-                <div class="row">
-					<span class="req-input valid" >
-						<span class="input-status" data-toggle="tooltip" data-placement="top" title="Input your post title."> </span>
-						<input type="text" data-min-length="8" placeholder="Post Title" value="testing post" th:field="*{name}">
-					</span>
-                </div>
 
-                <div class="row">
-					<span class="req-input message-box valid">
-						<span class="input-status" data-toggle="tooltip" data-placement="top" title="Post Contents."> </span>
-						<textarea type="textarea" data-min-length="10" placeholder="Post Contents" th:field="*{email}">Valid contents </textarea>
-                </div>
+<div class="ui main text container" style="margin-top: 6rem">
 
-
-
-                <div class="row submit-row">
-                    <button type="submit" class="btn btn-block submit-form valid" >Submit</button>
-                </div>
+    <div class="ui two column centered grid">
+        <div class="column">
+            <div class="ui raised segment">
+                <a class="ui teal ribbon label">Job Title</a>
+                <span th:text="${jobDetail.title}">Job Title</span>
+                <p></p>
+                <a class="ui teal ribbon label">Job Description</a>
+                <span th:text="${jobDetail.description}">Job Description</span>
+                <p></p>
+                <a class="ui teal ribbon label">Number of People to Hire</a>
+                <span th:text="${jobDetail.numberToHire}">Available Number</span>
+                <p></p>
+                <a class="ui teal ribbon label">Last Application Date</a>
+                <span th:text="${jobDetail.lastDate}">Last Application Date</span>
+                <p></p>
             </div>
         </div>
+
+    </div>
+
+
+    <h2 class="ui center aligned icon header">
+        <i class="file alternate icon"></i>
+        Job Application Form
+    </h2>
+
+    <form class="ui form" th:action="@{/saveapplication}" method="post" th:object="${newApplication}">
+
+        <div class="field">
+            <label>Name & Surname</label>
+            <input type="text" name="name-surname" placeholder="Name Surname" th:field="*{name}">
+        </div>
+
+        <div class="field">
+            <label>Email</label>
+            <input type="email" name="email" placeholder="example@example.com" th:field="*{email}">
+        </div>
+
+        <div class="field">
+
+            <div class="field" style="margin-top: 0.75rem">
+                <label>Phone</label>
+                <input type="text" name="phone" maxlength="11" placeholder="Phone" th:field="*{phone}">
+            </div>
+        </div>
+
+        <div class="ui form">
+            <div class="field">
+                <label>Address</label>
+                <textarea rows="2" placeholder="Address" th:field="*{address}"></textarea>
+            </div>
+        </div>
+        <div class="ui form">
+            <div class="field" style="margin-top: 0.6rem">
+                <label>Thoughts</label>
+                <textarea rows="2" placeholder="Thoughts" th:field="*{thoughts}"></textarea>
+            </div>
+        </div>
+
+        <button class="ui button" type="submit" style="margin-top: 0.8rem">
+            Submit
+        </button>
     </form>
+
 </div>
+
+<form method="POST" th:action="@{/uploadFile}" enctype="multipart/form-data">
+    <input type="file" name="file"/> <br/><br/>
+    <button type="submit">Submit</button>
+</form>
+<hr/>
+<div th:if="${message}">
+    <h2 th:text="${message}"/>
+</div>
+
+
 
 </body>
 </html>
