@@ -89,17 +89,5 @@
     </form>
 
 </div>
-
-<form method="POST" th:action="@{/uploadFile}" enctype="multipart/form-data">
-    <input type="file" name="file"/> <br/><br/>
-    <button type="submit">Submit</button>
-</form>
-<hr/>
-<div th:if="${message}">
-    <h2 th:text="${message}"/>
-</div>
-
-
-
 </body>
 </html>
