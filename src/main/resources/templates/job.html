@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="en" xmlns:th="http://www.w3.org/1999/xhtml">
+<html lang="en" xmlns:th="http://www.w3.org/1999/xhtml" xmlns:sec="http://www.thymeleaf.org/extras/spring-security">
 <head>
     <title>Title</title>
     <link rel="stylesheet" type="text/css" href="https://cdnjs.cloudflare.com/ajax/libs/semantic-ui/2.4.1/semantic.min.css">
@@ -14,10 +14,10 @@
     </div>
     <a class="item" href="/">Home</a>
     <a class="item" href="/jobs">Jobs</a>
-    <a class="item" href="/createjob">Create New Job</a>
-    <a class="item" href="/applications">Applications</a>
-    <a class="item" href="/login">Login</a>
-    <a class="item" href="/logout">Logout</a>
+    <a sec:authorize="isAuthenticated()" class="item" href="/createjob">Create New Job</a>
+    <a sec:authorize="isAuthenticated()" class="item" href="/applications">Applications</a>
+    <a sec:authorize="isAnonymous()" class="item" href="/login">Login</a>
+    <a sec:authorize="isAuthenticated()" class="item" href="/logout">Logout</a>
 </div>
 
 
@@ -40,54 +40,62 @@
                 <span th:text="${jobDetail.lastDate}">Last Application Date</span>
                 <p></p>
             </div>
-        </div>
 
+        </div>
     </div>
 
-
     <h2 class="ui center aligned icon header">
-        <i class="file alternate icon"></i>
-        Job Application Form
+        <a sec:authorize="isAuthenticated()" th:href="@{'/delete/' + ${jobDetail.id}}">Delete Job</a>
     </h2>
 
-    <form class="ui form" th:action="@{/saveapplication}" method="post" th:object="${newApplication}">
+    <div sec:authorize="isAnonymous()">
+        <h2 class="ui center aligned icon header">
 
-        <div class="field">
-            <label>Name & Surname</label>
-            <input type="text" name="name-surname" placeholder="Name Surname" th:field="*{name}">
-        </div>
+            <i class="file alternate icon"></i>
+            Job Application Form
+        </h2>
 
-        <div class="field">
-            <label>Email</label>
-            <input type="email" name="email" placeholder="example@example.com" th:field="*{email}">
-        </div>
+        <form class="ui form" th:action="@{/saveapplication}" method="post" th:object="${newApplication}" enctype="multipart/form-data">
 
-        <div class="field">
-
-            <div class="field" style="margin-top: 0.75rem">
-                <label>Phone</label>
-                <input type="text" name="phone" maxlength="11" placeholder="Phone" th:field="*{phone}">
-            </div>
-        </div>
-
-        <div class="ui form">
             <div class="field">
-                <label>Address</label>
-                <textarea rows="2" placeholder="Address" th:field="*{address}"></textarea>
+                <label>Name & Surname</label>
+                <input type="text" name="name-surname" placeholder="Name Surname" th:field="*{name}">
             </div>
-        </div>
-        <div class="ui form">
-            <div class="field" style="margin-top: 0.6rem">
-                <label>Thoughts</label>
-                <textarea rows="2" placeholder="Thoughts" th:field="*{thoughts}"></textarea>
-            </div>
-        </div>
 
-        <button class="ui button" type="submit" style="margin-top: 0.8rem">
-            Submit
-        </button>
-    </form>
+            <div class="field">
+                <label>Email</label>
+                <input type="email" name="email" placeholder="example@example.com" th:field="*{email}">
+            </div>
+
+            <div class="field">
+
+                <div class="field" style="margin-top: 0.75rem">
+                    <label>Phone</label>
+                    <input type="text" name="phone" maxlength="11" placeholder="Phone" th:field="*{phone}">
+                </div>
+            </div>
+
+            <div class="ui form">
+                <div class="field">
+                    <label>Address</label>
+                    <textarea rows="2" placeholder="Address" th:field="*{address}"></textarea>
+                </div>
+            </div>
+            <div class="ui form">
+                <div class="field" style="margin-top: 0.6rem">
+                    <label>Thoughts</label>
+                    <textarea rows="2" placeholder="Thoughts" th:field="*{thoughts}"></textarea>
+                </div>
+            </div>
+
+            <button class="ui button" type="submit" style="margin-top: 0.8rem">
+                Submit
+            </button>
+
+        </form>
+    </div>
 
 </div>
+
 </body>
 </html>

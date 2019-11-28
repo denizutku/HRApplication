@@ -3,15 +3,17 @@ package deniz.spring.hrapp.controllers;
 import deniz.spring.hrapp.models.Applicant;
 import deniz.spring.hrapp.models.Job;
 import deniz.spring.hrapp.services.ApplicantService;
+import deniz.spring.hrapp.services.FileService;
 import deniz.spring.hrapp.services.JobService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.web.bind.annotation.ModelAttribute;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.*;
+import org.springframework.web.multipart.MultipartFile;
 
+import javax.swing.text.Document;
 import java.util.List;
 
 @Controller
@@ -22,6 +24,9 @@ public class JobController {
 
     @Autowired
     private ApplicantService applicantService;
+
+    @Autowired
+    FileService fileService;
 
 
     @RequestMapping("/")
@@ -75,5 +80,6 @@ public class JobController {
         applicantService.saveApplication(Applicant);
         return "redirect:/jobs";
     }
+
 
 }

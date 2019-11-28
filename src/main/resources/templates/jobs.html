@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="en" xmlns:th="http://www.w3.org/1999/xhtml">
+<html lang="en" xmlns:th="http://www.w3.org/1999/xhtml" xmlns:sec="http://www.thymeleaf.org/extras/spring-security">
 <head>
     <title>Title</title>
     <link rel="stylesheet" type="text/css" href="https://cdnjs.cloudflare.com/ajax/libs/semantic-ui/2.4.1/semantic.min.css">
@@ -14,10 +14,10 @@
     </div>
     <a class="item" href="/">Home</a>
     <a class="item" href="/jobs">Jobs</a>
-    <a class="item" href="/createjob">Create New Job</a>
-    <a class="item" href="/applications">Applications</a>
-    <a class="item" href="/login">Login</a>
-    <a class="item" href="/logout">Logout</a>
+    <a sec:authorize="isAuthenticated()" class="item" href="/createjob">Create New Job</a>
+    <a sec:authorize="isAuthenticated()" class="item" href="/applications">Applications</a>
+    <a sec:authorize="isAnonymous()" class="item" href="/login">Login</a>
+    <a sec:authorize="isAuthenticated()" class="item" href="/logout">Logout</a>
 </div>
 
 <div class="ui main text container" style="margin-top: 6rem">
@@ -40,7 +40,7 @@
             <td th:text="${job.description}"></td>
             <td th:text="${job.numberToHire}"></td>
             <td th:text="${job.lastDate}"></td>
-            <td>    <a th:href="@{'/delete/' + ${job.id}}">Delete</a>
+            <td>
                 <a th:href="@{'/job/' + ${job.id}}">Details</a>
             </td>
         </tr>
