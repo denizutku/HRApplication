@@ -5,29 +5,27 @@ import deniz.spring.hrapp.models.Job;
 import deniz.spring.hrapp.services.ApplicantService;
 import deniz.spring.hrapp.services.FileService;
 import deniz.spring.hrapp.services.JobService;
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.http.HttpStatus;
-import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
 
-import javax.swing.text.Document;
 import java.util.List;
 
 @Controller
-public class JobController {
+class JobController {
 
-    @Autowired
-    private JobService jobService;
+    private final JobService jobService;
 
-    @Autowired
-    private ApplicantService applicantService;
+    private final ApplicantService applicantService;
 
-    @Autowired
-    FileService fileService;
+    private final FileService fileService;
 
+    JobController(JobService jobService, ApplicantService applicantService, FileService fileService) {
+        this.jobService = jobService;
+        this.applicantService = applicantService;
+        this.fileService = fileService;
+    }
 
     @RequestMapping("/")
     public String index(){
@@ -55,29 +53,29 @@ public class JobController {
     }
 
     @RequestMapping("/delete/{id}")
-    public String deleteJob(@PathVariable(name = "id") Long id) {
+    String deleteJob(@PathVariable(name = "id") Long id) {
         jobService.deleteJob(id);
         return "redirect:/jobs";
     }
 
-    @RequestMapping("/job/{id}")
-    public String detailsJob(@PathVariable(name = "id") Long id, Model model) {
+    @GetMapping("/job/{id}")
+    String detailsJob(@PathVariable(name = "id") Long id, Model model) {
         model.addAttribute("jobDetail",jobService.get(id));
         Applicant newApplication = new Applicant();
         model.addAttribute("newApplication", newApplication);
         return "job";
     }
 
-    @RequestMapping("/applications")
-    public String listApplications(Model model) {
+    @GetMapping("/applications")
+    String listApplications(Model model) {
         List<Applicant> listApplications = applicantService.listApplication();
         model.addAttribute("listApplications", listApplications);
         return "applications";
     }
 
-    @RequestMapping(value = "/saveapplication", method = RequestMethod.POST)
-    public String saveJob(@ModelAttribute("Applicant") Applicant Applicant) {
-        applicantService.saveApplication(Applicant);
+    @PostMapping(value = "/saveapplication")
+    String saveJob(Applicant applicant, @RequestPart("cv") MultipartFile multipartFile) {
+        applicantService.saveApplication(applicant);
         return "redirect:/jobs";
     }
 
