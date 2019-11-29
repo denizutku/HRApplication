@@ -59,19 +59,19 @@
 
             <div class="field">
                 <label>Name & Surname</label>
-                <input type="text" name="name-surname" placeholder="Name Surname" th:field="*{name}">
+                <input type="text" placeholder="Name Surname" th:field="*{name}">
             </div>
 
             <div class="field">
                 <label>Email</label>
-                <input type="email" name="email" placeholder="example@example.com" th:field="*{email}">
+                <input type="email" placeholder="example@example.com" th:field="*{email}">
             </div>
 
             <div class="field">
 
                 <div class="field" style="margin-top: 0.75rem">
                     <label>Phone</label>
-                    <input type="text" name="phone" maxlength="11" placeholder="Phone" th:field="*{phone}">
+                    <input type="text" maxlength="11" placeholder="Phone" th:field="*{phone}">
                 </div>
             </div>
 
@@ -86,6 +86,11 @@
                     <label>Thoughts</label>
                     <textarea rows="2" placeholder="Thoughts" th:field="*{thoughts}"></textarea>
                 </div>
+            </div>
+
+            <div class="field">
+                <label>CV</label>
+                <input type="file" name="cv" placeholder="Upload your CV">
             </div>
 
             <button class="ui button" type="submit" style="margin-top: 0.8rem">
