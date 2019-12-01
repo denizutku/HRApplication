@@ -76,6 +76,7 @@ class JobController {
     @PostMapping(value = "/saveapplication")
     String saveJob(Applicant applicant, @RequestPart("cv") MultipartFile multipartFile) {
         applicantService.saveApplication(applicant);
+        fileService.uploadFile(multipartFile);
         return "redirect:/jobs";
     }
 

@@ -25,7 +25,6 @@
     <table id="example" class="ui celled table" style="width:100%">
         <thead>
         <tr>
-            <th>ID</th>
             <th>Job Title</th>
             <th>Job Description</th>
             <th>Number of people to hire</th>
@@ -35,7 +34,6 @@
         </thead>
         <tfoot>
         <tr th:each="job : ${listJobs}">
-            <td th:text="${job.id}"></td>
             <td th:text="${job.title}"></td>
             <td th:text="${job.description}"></td>
             <td th:text="${job.numberToHire}"></td>
